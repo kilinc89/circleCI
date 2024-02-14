@@ -35,9 +35,12 @@ workflows:
       - build:
           filters:
             branches:
-              only:
-                - main
-
+              ignore: /.*/
+            pull_request:
+              branches:
+                only:
+                  - main
+                  - staging
 
 
 
