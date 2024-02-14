@@ -58,11 +58,10 @@ workflows:
                 - staging
       - test:
           filters:
-            pull_request:
-              branches:
-                only:
-                  - main
-                  - staging
+            branches:
+              only:
+                - main
+                - staging
 
 
 
