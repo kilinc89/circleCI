@@ -16,7 +16,7 @@ jobs:
           command: npm test
 
 workflows:
-  test-and-deploy:
+  test:
     jobs:
       - test:
           filters:
