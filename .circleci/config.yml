@@ -24,8 +24,13 @@ workflows:
               ignore: /.*/
               only:
                 - staging
+            pull_request:
+              branches:
+                only:
+                  - staging
             tags:
               only: /^v.*/
+
 # This CircleCI configuration file defines a CI/CD pipeline for a Node.js (specifically, a React) application. Here's a breakdown of what each part does:
 
 # Version:
