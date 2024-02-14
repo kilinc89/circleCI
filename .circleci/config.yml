@@ -56,6 +56,13 @@ workflows:
               only:
                 - main
                 - staging
+      - test:
+          filters:
+            pull_request:
+              branches:
+                only:
+                  - main
+                  - staging
 
 
 
