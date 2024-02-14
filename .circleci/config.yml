@@ -37,6 +37,7 @@ workflows:
             branches:
               only:
                 - main
+                - staging
 
 
 
