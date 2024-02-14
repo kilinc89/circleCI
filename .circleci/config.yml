@@ -25,9 +25,12 @@ jobs:
           key: app-build-cache-{{ .Branch }}
           paths:
             - ./build
+      # Replace Netlify deployment with S3 deployment
       - run:
-          name: Deploy to Netlify
-          command: ./node_modules/.bin/netlify deploy --site 58510801-fa3b-4225-9895-3769458dc1d5 --auth nfp_P3oiyPeNgB1XuQDbfGSm2JEEFi95MSZBef24 --prod --dir=build
+          name: Deploy to S3
+          command: |
+            sudo apt-get -y update && sudo apt-get install -y awscli
+            aws s3 sync ./build s3://ibrahim-react-js-test --delete
 workflows:
   version: 2
   build-deploy:
@@ -38,108 +41,3 @@ workflows:
               only:
                 - main
                 - staging
-
-
-
-
-# This CircleCI configuration file defines a CI/CD pipeline for a Node.js (specifically, a React) application. Here's a breakdown of what each part does:
-
-# Version:
-
-# yaml
-# Copy code
-# version: 2.1
-# This specifies the CircleCI configuration version. Version 2.1 is required to use some newer features like orbs, pipelines, and reusable configs.
-
-# Jobs:
-# The jobs block defines the jobs to be run by the pipeline.
-
-# Build Job:
-# yaml
-# Copy code
-# build:
-#   working_directory: ~/repo
-#   docker:
-#     - image: cimg/node:18.16.0
-# This job is named build. It sets the working directory to ~/repo and uses a Docker image cimg/node:18.16.0, which is a CircleCI Node.js image.
-# Steps:
-# These are the sequential steps that the build job will execute.
-
-# Checkout:
-
-# yaml
-# Copy code
-# - checkout
-# This step checks out the source code into the working directory.
-
-# Restore Cache:
-
-# yaml
-# Copy code
-# - restore_cache:
-#     key: dependency-cache-{{ checksum "package-lock.json" }}
-# Tries to restore a cache based on a key that depends on the checksum of package-lock.json. This is used to cache dependencies so that they don't need to be reinstalled every time.
-
-# Install Dependencies:
-
-# yaml
-# Copy code
-# - run:
-#     name: Install Dependencies
-#     command: npm install
-# Runs npm install to install the project dependencies.
-
-# Save Cache:
-
-# yaml
-# Copy code
-# - save_cache:
-#     key: dependency-cache-{{ checksum "package-lock.json" }}
-#     paths:
-#       - ./node_modules
-# After dependencies are installed, this step caches the node_modules directory for future runs, using a key based on the package-lock.json.
-
-# Build React App:
-
-# yaml
-# Copy code
-# - run:
-#     name: Build React App
-#     command: npm run build
-# Executes the build script (npm run build), typically used to create a production build of a React application.
-
-# Save Build Cache:
-
-# yaml
-# Copy code
-# - save_cache:
-#     key: app-build-cache-{{ .Branch }}
-#     paths:
-#       - ./build
-# Caches the build artifacts (the build directory) using a key that includes the branch name. This is useful for caching build outputs for reuse.
-
-# Deploy to Netlify:
-
-# yaml
-# Copy code
-# - run:
-#     name: Deploy to Netlify
-#     command: ./node_modules/.bin/netlify deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_ACCESS_TOKEN --prod --dir=build
-# Deploys the application to Netlify using the Netlify CLI. It uses environment variables for the Netlify site ID and access token.
-
-# Workflows:
-
-# yaml
-# Copy code
-# workflows:
-#   version: 2
-#   build-deploy:
-#     jobs:
-#       - build:
-#           filters:
-#             branches:
-#               only:
-#                 - main
-# Defines the workflow named build-deploy. It specifies that the build job should run only on the main branch. Workflows can orchestrate several jobs, define job dependencies, and specify branch filters.
-
-# In summary, this configuration sets up a pipeline that checks out the code, installs dependencies (with caching), builds a React application (and caches the build), and then deploys it to Netlify, but only when changes are made to the main branch.
