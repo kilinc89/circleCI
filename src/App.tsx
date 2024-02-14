@@ -16,7 +16,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React-Staging
+          Learn React-Stagingg
         </a>
       </header>
     </div>
