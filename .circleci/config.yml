@@ -46,6 +46,7 @@ jobs:
       - run:
           name: Run Tests
           command: npm test
+
 workflows:
   version: 2
   build-deploy:
@@ -58,10 +59,10 @@ workflows:
                 - staging
       - test:
           filters:
-            branches:
-              only:
-                - main
-                - staging
+              branches:
+                only:
+                  - staging
+
 
 
 
