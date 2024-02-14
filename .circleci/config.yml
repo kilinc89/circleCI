@@ -28,7 +28,7 @@ jobs:
       - run:
           name: Deploy to Netlify
           command: ./node_modules/.bin/netlify deploy --site 58510801-fa3b-4225-9895-3769458dc1d5 --auth nfp_P3oiyPeNgB1XuQDbfGSm2JEEFi95MSZBef24 --prod --dir=build
- test:
+  test:
     working_directory: ~/repo
     docker:
       - image: cimg/node:18.16.0
