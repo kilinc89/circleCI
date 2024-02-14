@@ -16,27 +16,16 @@ jobs:
           command: npm test
 
 workflows:
-  version: 2
   test-and-deploy:
     jobs:
       - test:
           filters:
             branches:
               ignore: /.*/
-            pull_request:
-              branches:
-                only:
-                  - staging
-      - build:
-          requires:
-            - test
-          filters:
-            branches:
               only:
-                - main
                 - staging
-
-
+            tags:
+              only: /^v.*/
 # This CircleCI configuration file defines a CI/CD pipeline for a Node.js (specifically, a React) application. Here's a breakdown of what each part does:
 
 # Version:
