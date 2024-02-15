@@ -19,7 +19,7 @@ jobs:
             - ./node_modules
       - run:
           name: Run Tests
-          command: npm testt
+          command: npm test
       - run:
           name: Build React App
           command: npm run build
