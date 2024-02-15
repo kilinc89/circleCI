@@ -35,28 +35,9 @@ jobs:
             aws s3 sync ./build s3://ibrahim-react-js-test --delete
       - slack/notify:
           channel: C1MDAQGBS
-          custom: |
-            {
-              "blocks": [
-                {
-                  "type": "header",
-                  "text": {
-                    "type": "plain_text",
-                    "text": "Bariatric Web",
-                    "emoji": true
-                  }
-                },
-                {
-                  "type": "section",
-                  "fields": [
-                    {
-                      "type": "mrkdwn",
-                      "text": "@here New release deployed"
-                    }
-                  ]
-                }
-              ]
-            }
+          event: pass
+          template: basic_success
+            
 workflows:
   version: 2
   build-deploy:
@@ -67,3 +48,53 @@ workflows:
               only:
                 - main
                 - staging
+
+
+# Define the basic_fail_1 template
+templates:
+  basic_success:
+    format: |
+      {
+        "blocks": [
+          {
+            "type": "header",
+            "text": {
+              "type": "plain_text",
+              "text": "Bariatric Web",
+              "emoji": true
+            }
+          },
+          {
+            "type": "section",
+            "fields": [
+              {
+                "type": "mrkdwn",
+                "text": "@here New release deployed"
+              }
+            ]
+          }
+        ]
+      }
+  basic_fail_1:
+    format: |
+      {
+        "blocks": [
+          {
+            "type": "header",
+            "text": {
+              "type": "plain_text",
+              "text": "Build Failure Notification",
+              "emoji": true
+            }
+          },
+          {
+            "type": "section",
+            "fields": [
+              {
+                "type": "mrkdwn",
+                "text": "The build has *failed*. Please check the CircleCI logs for more details."
+              }
+            ]
+          }
+        ]
+      }
