@@ -38,17 +38,24 @@ jobs:
             # Use JIRA REST API commands or CircleCI JIRA orb commands here
           when: staging # Ensures this step runs only for staging branch
       - slack/notify:
-          event: pass
-          custom: | # your custom notification goes here
+          event: always
+          custom: 
             {
               "blocks": [
+                {
+                  "type": "header",
+                  "text": {
+                    "type": "plain_text",
+                    "text": "Bariatric Web",
+                    "emoji": true
+                  }
+                },
                 {
                   "type": "section",
                   "fields": [
                     {
-                      "type": "plain_text",
-                      "text": "*This is a text notification*",
-                      "emoji": true
+                      "type": "mrkdwn",
+                      "text": "@here New release deployed"
                     }
                   ]
                 }
