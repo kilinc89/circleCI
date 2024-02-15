@@ -38,9 +38,8 @@ jobs:
           event: pass
           template: basic_success
       - slack/notify:
-          branch_pattern: C1MDAQGBS
+          channel: C1MDAQGBS
           event: fail
-          mentions: <@U8XXXXXXX>, @UserName
           template: basic_fail_1
 workflows:
   version: 2
