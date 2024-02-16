@@ -36,7 +36,7 @@ jobs:
             aws s3 sync ./build s3://ibrahim-react-js-test --delete
       - slack/notify:
           channel: C1MDAQGBS
-          event: pass
+          event: always
           template: basic_success
       - slack/notify:
           channel: C1MDAQGBS
