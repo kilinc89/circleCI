@@ -102,6 +102,9 @@ workflows:
                 - /sprint-.*/
 
 
+# Define the basic_fail_1 template
+templates:
+  basic_fail_1:
     format: |
       {
         "blocks": [
@@ -109,7 +112,7 @@ workflows:
             "type": "header",
             "text": {
               "type": "plain_text",
-              "text": "Test Failure",
+              "text": "Buil Failure",
               "emoji": true
             }
           },
@@ -118,7 +121,7 @@ workflows:
             "fields": [
               {
                 "type": "mrkdwn",
-                "text": "@here The Test has *failed*. Please check the CircleCI logs for more details."
+                "text": "@here The build has *failed*. Please check the CircleCI logs for more details."
               }
             ]
           }
