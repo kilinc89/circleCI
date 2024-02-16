@@ -42,8 +42,6 @@ jobs:
           channel: C1MDAQGBS
           event: fail
           template: basic_fail_1
-      - jira/notify:
-          job_type:deployment
 workflows:
   version: 2
   build-deploy:
