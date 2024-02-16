@@ -102,55 +102,6 @@ workflows:
                 - /sprint-.*/
 
 
-# Define the basic_fail_1 template
-templates:
-  basic_success:
-    format: |
-      {
-        "blocks": [
-          {
-            "type": "header",
-            "text": {
-              "type": "plain_text",
-              "text": "Bariatric Web",
-              "emoji": true
-            }
-          },
-          {
-            "type": "section",
-            "fields": [
-              {
-                "type": "mrkdwn",
-                "text": "@here New release deployed"
-              }
-            ]
-          }
-        ]
-      }
-  basic_fail_1:
-    format: |
-      {
-        "blocks": [
-           {
-            "type": "header",
-            "text": {
-              "type": "plain_text",
-              "text": "Buil Failure",
-              "emoji": true
-            }
-          },
-          {
-            "type": "section",
-            "fields": [
-              {
-                "type": "mrkdwn",
-                "text": "@here The build has *failed*. Please check the CircleCI logs for more details."
-              }
-            ]
-          }
-        ]
-      }
-  test_fail_1:
     format: |
       {
         "blocks": [
