@@ -1,7 +1,6 @@
 version: 2.1
 orbs:
   slack: circleci/slack@4.1
-  jira: circleci/jira@2.1.0
 jobs:
   build:
     working_directory: ~/repo
@@ -42,8 +41,6 @@ jobs:
           channel: C1MDAQGBS
           event: fail
           template: basic_fail_1
-      - jira/notify:
-          job_type:deployment
 workflows:
   version: 2
   build-deploy:
@@ -75,7 +72,7 @@ templates:
             "fields": [
               {
                 "type": "mrkdwn",
-                "text": "@here branch: ${CIRCLE_BRANCH} New release deployed"
+                "text": "@here New release deployed"
               }
             ]
           }
@@ -98,7 +95,7 @@ templates:
             "fields": [
               {
                 "type": "mrkdwn",
-                "text": "@here branch: ${CIRCLE_BRANCH} The build has *failed*. Please check the CircleCI logs for more details."
+                "text": "@here The build has *failed*. Please check the CircleCI logs for more details."
               }
             ]
           }
