@@ -63,7 +63,28 @@ jobs:
       - slack/notify:
           channel: C1MDAQGBS
           event: fail
-          template: basic_fail_2
+          custom: |  
+            {
+              "blocks": [
+                {
+                  "type": "header",
+                  "text": {
+                    "type": "plain_text",
+                    "text": "Test Failure",
+                    "emoji": true
+                  }
+                },
+                {
+                  "type": "section",
+                  "fields": [
+                    {
+                      "type": "mrkdwn",
+                      "text": "@here $CIRCLE_BRANCH The Test has *failed*. Please check the CircleCI logs for more details."
+                    }
+                  ]
+                }
+              ]
+            }
 workflows:
   version: 2
   build-test-and-deploy:
