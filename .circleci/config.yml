@@ -73,7 +73,7 @@ templates:
             "fields": [
               {
                 "type": "mrkdwn",
-                "text": "@here branch: ${CIRCLE_BRANCH} New release deployed"
+                "text": "@here branch: << pipeline.parameters.branch >> New release deployed"
               }
             ]
           }
@@ -96,7 +96,7 @@ templates:
             "fields": [
               {
                 "type": "mrkdwn",
-                "text": "@here branch: ${CIRCLE_BRANCH} The build has *failed*. Please check the CircleCI logs for more details."
+                "text": "@here branch: << pipeline.parameters.branch >> The build has *failed*. Please check the CircleCI logs for more details."
               }
             ]
           }
