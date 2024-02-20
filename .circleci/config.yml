@@ -38,13 +38,14 @@ jobs:
           name: Set Release Info Environment Variable
           command: |
             echo "Get JIRA issues"
-            COMMIT_NAME=curl -L \
+            
+            LAST_COMMITS=`curl -L \
             -H "Accept: application/vnd.github+json" \
             -H "Authorization: Bearer $GITHUB_TOKEN" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
-            https://github.com/kilinc89/circleCI/commits?per_page=20
+            https://github.com/kilinc89/circleCI/commits?per_page=20`
 
-            echo "COMMIT_NAME: $COMMIT_NAME"
+            echo "LAST_COMMITS: $LAST_COMMITS"
           environment:
             BASH_ENV: /tmp/bash_env
       - slack/notify:
