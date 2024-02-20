@@ -36,7 +36,10 @@ jobs:
             aws s3 sync ./build s3://ibrahim-react-js-test --delete
       - run:
           name: Set Release Info Environment Variable
-          command: echo 'export RELEASE_INFO=$(tail -n 1 release_info.txt)' >> $BASH_ENV
+          command: |
+           echo "Get JIRA issues"
+           LAST_RELEASE_DATE="12.12.2023"
+           echo $LAST_RELEASE_DATE
           environment:
             BASH_ENV: /tmp/bash_env
       - slack/notify:
