@@ -34,11 +34,6 @@ jobs:
           command: |
             sudo apt-get -y update && sudo apt-get install -y awscli
             aws s3 sync ./build s3://ibrahim-react-js-test --delete
-      - run:
-          name: Set Release Info Environment Variable
-          command: echo 'export RELEASE_INFO=$(tail -n 1 release_info.txt)' >> $BASH_ENV
-          environment:
-            BASH_ENV: /tmp/bash_env
       - slack/notify:
           channel: C1MDAQGBS
           event: fail
