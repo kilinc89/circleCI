@@ -38,12 +38,13 @@ jobs:
           name: Set Release Info Environment Variable
           command: |
             echo "Get JIRA issues"
-            LAST_RELEASE_DATE=`git log --grep="Release info file updated" -1 --format=%ci`;
-            PHENOLOGY_APP_ISSUE_LIST=`git log $1 --after="${LAST_RELEASE_DATE}" | grep -Eo '(PHEN-)([0-9]+)' | uniq`;
-            echo $LAST_RELEASE_DATE;
-            echo $PHENOLOGY_APP_ISSUE_LIST;
-            cd ..;
-            git clone git@github.com:EatWithAva/hologram-mobile-app-lib.git;
+            COMMIT_NAME=curl -L \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer $GITHUB_TOKEN" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            https://github.com/kilinc89/circleCI/commits?per_page=20
+
+            echo "COMMIT_NAME: $COMMIT_NAME"
           environment:
             BASH_ENV: /tmp/bash_env
       - slack/notify:
