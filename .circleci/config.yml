@@ -126,7 +126,21 @@ jobs:
             fi
 
 
+            # Append the current date and time to release_info.txt
+            echo $(date) >> release_info.txt
 
+            # Add the changes to the staging area
+            git add release_info.txt
+
+            # Set the author information
+            git config user.email "ibrhmklnc@gmail.com"
+            git config user.name "kilinc89"
+
+            # Commit the changes
+            git commit -m "Update release_info.txt with current date and time"
+
+            # Push the changes
+            git push
 workflows:
   version: 2
   build-test-and-deploy:
