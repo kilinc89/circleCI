@@ -120,7 +120,10 @@ jobs:
             for line in $COMMIT_MESSAGES; do
               ISSUE_KEY=$(echo "$line" | grep -o 'NAR-[0-9]\+')
               echo "ISSUE_KEY $ISSUE_KEY"
+              ISSUE_KEYS+=("$ISSUE_KEY")
             done
+            echo "3333333"
+            echo "ISSUE_KEYS"
 workflows:
   version: 2
   build-test-and-deploy:
