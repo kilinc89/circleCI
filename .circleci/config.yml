@@ -119,7 +119,7 @@ jobs:
               if [[ ! -z "$ISSUE_KEY" ]]; then
                 ISSUE_KEYS+=("$ISSUE_KEY")
               fi
-            done <<< "$COMMIT_MESSAGES"
+            done \<<< "$COMMIT_MESSAGES"
 workflows:
   version: 2
   build-test-and-deploy:
