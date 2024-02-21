@@ -116,6 +116,7 @@ jobs:
 
             while IFS= read -r line; do
               XXX=$(echo "$line" | grep -o 'NAR-[0-9]\+')
+              echo "XXX   $XXX"
               if [[ ! -z "$XXX" ]]; then
                 ISSUE_KEYS+=("$XXX")
               fi
