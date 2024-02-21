@@ -114,10 +114,11 @@ jobs:
             echo "last_commit $last_commit"
             commit_messages=$(git log $last_commit..HEAD --pretty=%B)
             echo "commit_messages $commit_messages"
-            if [[ -z "$commit_messages" | grep -o 'NAR-[0-9]\+' ]]; then
-              echo "Commit messages length is less than 3"
+            if [[ -z "$commit_messages" ]] || ! echo "$commit_messages" | grep -q 'NAR-[0-9]\+'; then
+              echo "Commit messages length is less than 3 or doesn't contain a valid issue key"
               exit 1
             fi
+            
             issue_keys=($(echo "$commit_messages" | grep -o 'NAR-[0-9]\+'))
             echo "444444"
             if [ ${#issue_keys[@]} -eq 0 ]; then
