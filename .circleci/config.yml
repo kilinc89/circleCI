@@ -43,7 +43,7 @@ jobs:
             COMMIT_MESSAGE=$(git log -1 --pretty=%B)
             ISSUE_KEY=$(echo $COMMIT_MESSAGE | grep -o 'NAR-[0-9]\+')
             echo 'export ISSUE_KEY="$ISSUE_KEY"' >> $BASH_ENV
-            echo "TEST_KEY $TEST_KEY"
+            echo "ISSUE_KEY $ISSUE_KEY"
       - jira/notify:
           pipeline_id: << pipeline.id >>
           pipeline_number: << pipeline.number >>
