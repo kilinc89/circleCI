@@ -37,11 +37,12 @@ jobs:
       - run:
           name: Extract Jira issue key
           command: |
+            set -x
             echo "start"
             TEST_KEY="NAR-123"
             COMMIT_MESSAGE=$(git log -1 --pretty=%B)
             ISSUE_KEY=$(echo $COMMIT_MESSAGE | grep -o 'NAR-[0-9]\+')
-            echo "export ISSUE_KEY=$ISSUE_KEY"
+            echo 'export ISSUE_KEY="$ISSUE_KEY"' >> $BASH_ENV
             echo "TEST_KEY $TEST_KEY"
       - jira/notify:
           pipeline_id: << pipeline.id >>
