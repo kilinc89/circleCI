@@ -119,8 +119,11 @@ jobs:
             IFS=$'\n'
             for line in $COMMIT_MESSAGES; do
               ISSUE_KEY=$(echo "$line" | grep -o 'NAR-[0-9]\+')
-              echo "ISSUE_KEY $ISSUE_KEY"
-              ISSUE_KEYS+=("$ISSUE_KEY")
+              if [[ ! -z "$ISSUE_KEY" ]]; then
+                echo "ISSUE_KEY $ISSUE_KEY"
+                ISSUE_KEYS+=("$ISSUE_KEY")
+                echo "ISSUE_KEYS $ISSUE_KEYS"
+              fi
             done
             echo "3333333"
             echo "ISSUE_KEYS"
