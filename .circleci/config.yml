@@ -112,7 +112,7 @@ jobs:
             # commit_messages=$(git log -50 --pretty=%B)
             last_commit=$(git log -1 --pretty=format:"%H" -- release_info.txt)
             echo "last_commit $last_commit"
-            commit_messages=$(git log c6f19f3b519523870e585360da2e6ec3a86024c6..HEAD --pretty=%B)
+            commit_messages=$(git log 39eb44f18c6e9ce3b55685506b6840d7c120683b..HEAD --pretty=%B)
             issue_keys=($(echo "$commit_messages" | grep -o 'NAR-[0-9]\+'))
             if [ ${#issue_keys[@]} -eq 0 ]; then
               # Handle case when no issue keys are found
