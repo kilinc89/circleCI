@@ -115,7 +115,7 @@ jobs:
             commit_messages=$(git log $last_commit..HEAD --pretty=%B)
             echo "commit_messages $commit_messages"
             issue_keys=($(echo "$commit_messages" | grep -o 'NAR-[0-9]\+'))
-            
+            echo "444444"
             if [ ${#issue_keys[@]} -eq 0 ]; then
               # Handle case when no issue keys are found
               echo "No JIRA issue keys found in the commit messages."
