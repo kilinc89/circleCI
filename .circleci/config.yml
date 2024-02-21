@@ -111,43 +111,42 @@ jobs:
           command: |
             # commit_messages=$(git log -50 --pretty=%B)
             last_commit=$(git log -1 --pretty=format:"%H" -- release_info.txt)
-            echo "last_commit $last_commit"
             commit_messages=$(git log $last_commit..HEAD --pretty=%B)
-            echo "commit_messages $commit_messages"
+            
             if [[ -z "$commit_messages" ]] || ! echo "$commit_messages" | grep -q 'NAR-[0-9]\+'; then
               echo "Commit messages length is less than 3 or doesn't contain a valid issue key"
-              exit 1
+            else
+              issue_keys=($(echo "$commit_messages" | grep -o 'NAR-[0-9]\+'))
+
+              if [ ${#issue_keys[@]} -eq 0 ]; then
+                # Handle case when no issue keys are found
+                echo "No JIRA issue keys found in the commit messages."
+              else
+                # Process the extracted issue keys
+                for issue_key in "${issue_keys[@]}"; do
+                  # Do something with the issue key
+                  echo "Found JIRA issue key: $issue_key"
+                done
+              fi
+
+              # Append the current date and time to release_info.txt
+              echo $(date) >> release_info.txt
+
+              # Add the changes to the staging area
+              git add release_info.txt
+
+              # Set the author information
+              git config user.email "ibrhmklnc@gmail.com"
+              git config user.name "kilinc89"
+
+              # Commit the changes
+              git commit -m "Update release_info.txt with current date and time"
+
+              # Push the changes
+              git push --set-upstream origin sprint-1
             fi
             
-            issue_keys=($(echo "$commit_messages" | grep -o 'NAR-[0-9]\+'))
-            echo "444444"
-            if [ ${#issue_keys[@]} -eq 0 ]; then
-              # Handle case when no issue keys are found
-              echo "No JIRA issue keys found in the commit messages."
-            else
-              # Process the extracted issue keys
-              for issue_key in "${issue_keys[@]}"; do
-                # Do something with the issue key
-                echo "Found JIRA issue key: $issue_key"
-              done
-            fi
-
-
-            # Append the current date and time to release_info.txt
-            echo $(date) >> release_info.txt
-
-            # Add the changes to the staging area
-            git add release_info.txt
-
-            # Set the author information
-            git config user.email "ibrhmklnc@gmail.com"
-            git config user.name "kilinc89"
-
-            # Commit the changes
-            git commit -m "Update release_info.txt with current date and time"
-
-            # Push the changes
-            git push --set-upstream origin sprint-1
+            
 workflows:
   version: 2
   build-test-and-deploy:
