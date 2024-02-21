@@ -109,10 +109,10 @@ jobs:
           name: ssh
           command: |
             set -x
-            echo "SSH_WRITE $SSH_WRITE"
+            echo "SSH_KEY $SSH_KEY"
       - add_ssh_keys:
           fingerprints:
-            - "${SSH_WRITE}"
+            - "${SSH_KEY}"
       - checkout
       - run:
           name: Extract Jira issue key
