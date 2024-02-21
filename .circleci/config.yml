@@ -115,6 +115,12 @@ jobs:
             YYYYYY=$(echo $TTTTT | grep -o 'NAR-[0-9]\+')
             echo "YYYYYY $YYYYYY"
             echo "22222222"
+            COMMIT_MESSAGES=$(git log -10 --pretty=%B)
+            ISSUE_KEYS=()
+            for line in $COMMIT_MESSAGES; do
+              ISSUE_KEY=$(echo "$line" | grep -o 'NAR-[0-9]\+')
+              echo "ISSUE_KEY $ISSUE_KEY"
+            done
 workflows:
   version: 2
   build-test-and-deploy:
