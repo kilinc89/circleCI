@@ -113,14 +113,13 @@ jobs:
             echo "1111111"
             COMMIT_MESSAGES=$(git log -10 --pretty=%B)
             ISSUE_KEYS=()
-            IFS=$'\n'
-            
-            for line in $COMMIT_MESSAGES; do
+
+            while IFS= read -r line; do
               ISSUE_KEY=$(echo "$line" | grep -o 'NAR-[0-9]\+')
               if [[ ! -z "$ISSUE_KEY" ]]; then
                 ISSUE_KEYS+=("$ISSUE_KEY")
               fi
-            done
+            done <<< "$COMMIT_MESSAGES"
 workflows:
   version: 2
   build-test-and-deploy:
