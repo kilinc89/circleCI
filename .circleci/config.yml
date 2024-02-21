@@ -140,7 +140,7 @@ jobs:
             git commit -m "Update release_info.txt with current date and time"
 
             # Push the changes
-            git push
+            git push --set-upstream origin sprint-1
 workflows:
   version: 2
   build-test-and-deploy:
