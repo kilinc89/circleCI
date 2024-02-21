@@ -34,6 +34,12 @@ jobs:
           command: |
             sudo apt-get -y update && sudo apt-get install -y awscli
             aws s3 sync ./build s3://ibrahim-react-js-test --delete
+      - run:
+          name: Extract Jira issue key
+          command: |
+            COMMIT_MESSAGE=$(git log -1 --pretty=%B)
+            ISSUE_KEY=$(echo $COMMIT_MESSAGE | grep -o '[A-Z0-9]\+-[0-9]\+')
+            echo "export ISSUE_KEY=$ISSUE_KEY" >> $BASH_ENV
       - jira/notify:
           pipeline_id: << pipeline.id >>
           pipeline_number: << pipeline.number >>
