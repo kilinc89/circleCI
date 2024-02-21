@@ -115,9 +115,9 @@ jobs:
             ISSUE_KEYS=()
 
             while IFS= read -r line; do
-              ISSUE_KEY=$(echo "$line" | grep -o 'NAR-[0-9]\+')
-              if [[ ! -z "$ISSUE_KEY" ]]; then
-                ISSUE_KEYS+=("$ISSUE_KEY")
+              XXX=$(echo "$line" | grep -o 'NAR-[0-9]\+')
+              if [[ ! -z "$XXX" ]]; then
+                ISSUE_KEYS+=("$XXX")
               fi
             done \<<< "$COMMIT_MESSAGES"
 workflows:
