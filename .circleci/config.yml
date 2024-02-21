@@ -109,6 +109,7 @@ jobs:
       - run:
           name: Extract Jira issue key
           command: |
+          
             # commit_messages=$(git log -50 --pretty=%B)
             last_commit=$(git log -1 --pretty=format:"%H" -- release_info.txt)
             echo "last_commit $last_commit"
