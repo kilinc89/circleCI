@@ -109,6 +109,7 @@ jobs:
       - run:
           name: Extract Jira issue key
           command: |
+            set -x
             echo "1111111"
             TTTTT=$(git log -1 --pretty=%B)
             YYYYYY=$(echo $TTTTT | grep -o 'NAR-[0-9]\+')
@@ -120,8 +121,6 @@ jobs:
             for line in $COMMIT_MESSAGES; do
               echo "77777 $line"
             done
-            echo "3333333"
-            echo "ISSUE_KEYS"
 workflows:
   version: 2
   build-test-and-deploy:
