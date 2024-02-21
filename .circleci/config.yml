@@ -39,7 +39,7 @@ jobs:
           command: |
             set -x
             echo "start"
-            COMMIT_MESSAGE=$(git log -1 --pretty=%B)
+            COMMIT_MESSAGE=$(git log -10 --pretty=%B)
             ISSUE_KEY=$(echo $COMMIT_MESSAGE | grep -o 'NAR-[0-9]\+')
             echo 'export ISSUE_KEY="$ISSUE_KEY"' >> $BASH_ENV
             echo "ISSUE_KEY $ISSUE_KEY"
