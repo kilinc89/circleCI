@@ -39,10 +39,17 @@ jobs:
           command: |
             set -x
             echo "start"
-            COMMIT_MESSAGE=$(git log -10 --pretty=%B)
-            ISSUE_KEY=$(echo $COMMIT_MESSAGE | grep -o 'NAR-[0-9]\+')
-            echo 'export ISSUE_KEY="$ISSUE_KEY"' >> $BASH_ENV
-            echo "ISSUE_KEY $ISSUE_KEY"
+            COMMIT_MESSAGES=$(git log -10 --pretty=%B)
+            ISSUE_KEYS=()
+            while IFS= read -r line; do
+              ISSUE_KEY=$(echo "$line" | grep -o 'NAR-[0-9]\+')
+              if [[ ! -z "$ISSUE_KEY" ]]; then
+                ISSUE_KEYS+=("$ISSUE_KEY")
+              fi
+            done <<< "$COMMIT_MESSAGES"
+            for key in "${ISSUE_KEYS[@]}"; do
+              echo "ISSUE_KEY: $key"
+            done
       - jira/notify:
           pipeline_id: << pipeline.id >>
           pipeline_number: << pipeline.number >>
