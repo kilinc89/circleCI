@@ -111,15 +111,19 @@ jobs:
           command: |
             set -x
             echo "1111111"
-            COMMIT_MESSAGES=$(git log -10 --pretty=%B)
-            ISSUE_KEYS=()
-
-            while IFS= read -r line; do
-              echo "$line" 
-              XXX=$(echo "$line" | grep -o 'NAR-[0-9]\+')
-              echo "$(echo "$line" | grep -o 'NAR-[0-9]\+')" 
-
-            done \<<< "$COMMIT_MESSAGES"
+            commit_messages=$(git log -10 --pretty=%B)
+            issue_keys=($(echo "$commit_messages" | grep -o 'NAR-[0-9]\+'))
+            echo "22222 issue_keys $issue_keys"
+            if [ ${#issue_keys[@]} -eq 0 ]; then
+              # Handle case when no issue keys are found
+              echo "No JIRA issue keys found in the commit messages."
+            else
+              # Process the extracted issue keys
+              for issue_key in "${issue_keys[@]}"; do
+                # Do something with the issue key
+                echo "Found JIRA issue key: $issue_key"
+              done
+            fi
 workflows:
   version: 2
   build-test-and-deploy:
