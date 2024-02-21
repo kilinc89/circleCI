@@ -115,7 +115,13 @@ jobs:
             ISSUE_KEYS=()
 
             while IFS= read -r line; do
-              echo "line   $line"
+              XXX=$(echo "$line" | grep -o 'NAR-[0-9]\+')
+              if [[ ! -z "$XXX" ]]; then
+                echo "Valid issue key: $XXX"
+                ISSUE_KEYS+=("$XXX")
+              else
+                echo "Invalid issue key"
+              fi
             done \<<< "$COMMIT_MESSAGES"
 workflows:
   version: 2
