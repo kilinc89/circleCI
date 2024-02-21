@@ -111,15 +111,14 @@ jobs:
           command: |
             set -x
             echo "1111111"
-            TTTTT=$(git log -1 --pretty=%B)
-            YYYYYY=$(echo $TTTTT | grep -o 'NAR-[0-9]\+')
-            echo "YYYYYY $YYYYYY"
-            echo "22222222"
             COMMIT_MESSAGES=$(git log -10 --pretty=%B)
             ISSUE_KEYS=()
             IFS=$'\n'
             for line in $COMMIT_MESSAGES; do
-              echo "77777 $line"
+              ISSUE_KEY=$(echo "$line" | grep -o 'NAR-[0-9]\+')
+              if [[ ! -z "$ISSUE_KEY" ]]; then
+                ISSUE_KEYS+=("$ISSUE_KEY")
+              fi
             done
 workflows:
   version: 2
