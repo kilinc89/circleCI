@@ -106,6 +106,9 @@ jobs:
       - image: cimg/node:18.16.0
     steps:
       - checkout
+      - add_ssh_keys:
+            fingerprints:
+              - "${SSH}"
       - run:
           name: Extract Jira issue key
           command: |
