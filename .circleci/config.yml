@@ -111,7 +111,7 @@ jobs:
           command: |
             set -x
             echo "1111111"
-            commit_messages=$(git log -10 --pretty=%B)
+            commit_messages=$(git log -50 --pretty=%B)
             issue_keys=($(echo "$commit_messages" | grep -o 'NAR-[0-9]\+'))
             echo "22222 issue_keys $issue_keys"
             if [ ${#issue_keys[@]} -eq 0 ]; then
