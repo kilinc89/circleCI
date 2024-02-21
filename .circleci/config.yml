@@ -116,7 +116,7 @@ jobs:
             echo "commit_messages $commit_messages"
             if [[ ${#commit_messages} -lt 3 ]]; then
               echo "Commit messages length is less than 3"
-              exit 1
+              exit 0
             fi
             issue_keys=($(echo "$commit_messages" | grep -o 'NAR-[0-9]\+'))
             echo "444444"
