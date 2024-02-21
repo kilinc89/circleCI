@@ -46,7 +46,7 @@ jobs:
               if [[ ! -z "$ISSUE_KEY" ]]; then
                 ISSUE_KEYS+=("$ISSUE_KEY")
               fi
-            done <<< "$COMMIT_MESSAGES"
+            done
             for key in "${ISSUE_KEYS[@]}"; do
               echo "ISSUE_KEY: $key"
             done
