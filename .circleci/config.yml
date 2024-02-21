@@ -118,7 +118,7 @@ jobs:
             ISSUE_KEYS=()
             IFS=$'\n'
             for line in $COMMIT_MESSAGES; do
-              echo "line $line"
+              echo "77777 $line"
             done
             echo "3333333"
             echo "ISSUE_KEYS"
