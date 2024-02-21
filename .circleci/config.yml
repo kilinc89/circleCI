@@ -116,7 +116,9 @@ jobs:
 
             while IFS= read -r line; do
               echo "$line" 
-        
+              XXX=$(echo "$line" | grep -o 'NAR-[0-9]\+')
+              echo "$XXX" 
+
             done \<<< "$COMMIT_MESSAGES"
 workflows:
   version: 2
