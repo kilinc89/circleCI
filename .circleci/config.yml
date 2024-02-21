@@ -37,6 +37,7 @@ jobs:
       - run:
           name: Extract Jira issue key
           command: |
+            set -x
             echo "1111111"
             COMMIT_MESSAGES=$(git log -10 --pretty=%B)
             ISSUE_KEYS=()
