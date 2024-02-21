@@ -34,21 +34,6 @@ jobs:
           command: |
             sudo apt-get -y update && sudo apt-get install -y awscli
             aws s3 sync ./build s3://ibrahim-react-js-test --delete
-      - run:
-          name: Extract Jira issue key
-          command: |
-            set -x
-            echo "1111111"
-            COMMIT_MESSAGES=$(git log -10 --pretty=%B)
-            ISSUE_KEYS=()
-            IFS=$'\n'
-            for line in $COMMIT_MESSAGES; do
-              echo "77777 $line"
-            done
-            echo "22222222"
-      - jira/notify:
-          pipeline_id: << pipeline.id >>
-          pipeline_number: << pipeline.number >>
       - slack/notify:
           channel: C1MDAQGBS
           event: fail
@@ -78,77 +63,7 @@ jobs:
       - slack/notify:
           channel: C1MDAQGBS
           event: fail
-          custom: |  
-            {
-              "blocks": [
-                {
-                  "type": "header",
-                  "text": {
-                    "type": "plain_text",
-                    "text": "Test Failure",
-                    "emoji": true
-                  }
-                },
-                {
-                  "type": "section",
-                  "fields": [
-                    {
-                      "type": "mrkdwn",
-                      "text": "@here $CIRCLE_BRANCH The Test has *failed*. Please check the CircleCI logs for more details."
-                    }
-                  ]
-                }
-              ]
-            }
-  test1:
-    working_directory: ~/repo
-    docker:
-      - image: cimg/node:18.16.0
-    steps:
-      - run:
-          name: ssh
-          command: |
-            set -x
-            echo "SSH_KEY $SSH_KEY"
-      - add_ssh_keys:
-          fingerprints:
-            - "$SSH_KEY"
-      - checkout
-      - run:
-          name: Extract Jira issue key
-          command: |
-            # commit_messages=$(git log -50 --pretty=%B)
-            last_commit=$(git log -1 --pretty=format:"%H" -- release_info.txt)
-            echo "last_commit $last_commit"
-            commit_messages=$(git log $last_commit..HEAD --pretty=%B)
-            issue_keys=($(echo "$commit_messages" | grep -o 'NAR-[0-9]\+'))
-            if [ ${#issue_keys[@]} -eq 0 ]; then
-              # Handle case when no issue keys are found
-              echo "No JIRA issue keys found in the commit messages."
-            else
-              # Process the extracted issue keys
-              for issue_key in "${issue_keys[@]}"; do
-                # Do something with the issue key
-                echo "Found JIRA issue key: $issue_key"
-              done
-            fi
-
-
-            # Append the current date and time to release_info.txt
-            echo $(date) >> release_info.txt
-
-            # Add the changes to the staging area
-            git add release_info.txt
-
-            # Set the author information
-            git config user.email "ibrhmklnc@gmail.com"
-            git config user.name "kilinc89"
-
-            # Commit the changes
-            git commit -m "Update release_info.txt with current date and time"
-
-            # Push the changes
-            git push --set-upstream origin sprint-1
+          template: test_fail_1
 workflows:
   version: 2
   build-test-and-deploy:
@@ -159,13 +74,7 @@ workflows:
               only:
                 - main
                 - staging
-                # - /sprint-.*/
-      # - test:
-      #     filters:
-      #       branches:
-      #         only:
-      #           - /sprint-.*/
-      - test1:
+      - test:
           filters:
             branches:
               only:
@@ -174,6 +83,29 @@ workflows:
 
 # Define the basic_fail_1 template
 templates:
+  basic_success:
+    format: |
+      {
+        "blocks": [
+          {
+            "type": "header",
+            "text": {
+              "type": "plain_text",
+              "text": "Bariatric Web",
+              "emoji": true
+            }
+          },
+          {
+            "type": "section",
+            "fields": [
+              {
+                "type": "mrkdwn",
+                "text": "@here New release deployed"
+              }
+            ]
+          }
+        ]
+      }
   basic_fail_1:
     format: |
       {
@@ -192,6 +124,29 @@ templates:
               {
                 "type": "mrkdwn",
                 "text": "@here The build has *failed*. Please check the CircleCI logs for more details."
+              }
+            ]
+          }
+        ]
+      }
+  test_fail_1:
+    format: |
+      {
+        "blocks": [
+           {
+            "type": "header",
+            "text": {
+              "type": "plain_text",
+              "text": "Test Failure",
+              "emoji": true
+            }
+          },
+          {
+            "type": "section",
+            "fields": [
+              {
+                "type": "mrkdwn",
+                "text": "@here The Test has *failed*. Please check the CircleCI logs for more details."
               }
             ]
           }
