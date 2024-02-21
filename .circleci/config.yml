@@ -109,7 +109,6 @@ jobs:
       - run:
           name: Extract Jira issue key
           command: |
-            set -x
             echo "1111111"
             TTTTT=$(git log -1 --pretty=%B)
             YYYYYY=$(echo $TTTTT | grep -o 'NAR-[0-9]\+')
