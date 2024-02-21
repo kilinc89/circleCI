@@ -105,12 +105,12 @@ jobs:
     docker:
       - image: cimg/node:18.16.0
     steps:
-      - checkout
       - run:
           name: ssh
           command: |
             set -x
             echo "SSH_WRITE $SSH_WRITE"
+      - checkout
       - add_ssh_keys:
           fingerprints:
             - "${SSH_WRITE}"
