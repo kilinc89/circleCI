@@ -105,14 +105,6 @@ jobs:
     docker:
       - image: cimg/node:18.16.0
     steps:
-      - run:
-          name: ssh
-          command: |
-            set -x
-            echo "SSH_KEY $SSH_KEY"
-      - add_ssh_keys:
-          fingerprints:
-            - "$SSH_KEY"
       - checkout
       - run:
           name: Extract Jira issue key
