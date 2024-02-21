@@ -114,6 +114,7 @@ jobs:
             COMMIT_MESSAGES=$(git log -10 --pretty=%B)
             ISSUE_KEYS=()
             IFS=$'\n'
+            
             for line in $COMMIT_MESSAGES; do
               ISSUE_KEY=$(echo "$line" | grep -o 'NAR-[0-9]\+')
               if [[ ! -z "$ISSUE_KEY" ]]; then
