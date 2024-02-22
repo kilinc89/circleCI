@@ -50,8 +50,8 @@ jobs:
               # Process the extracted issue keys
               for issue_key in "${issue_keys[@]}"; do
                 # Do something with the issue key
-                echo "Found JIRA issue key: $issue_key"
-                curl -u ${JIRA_USER}:${JIRA_TOKEN} -X POST -H "Content-Type: application/json" -d '{"transition": {"id": "61"}}' "${JIRA_BASE_URL}rest/api/2/issue/${issue_key}/transitions"
+                issue_key_simple=${issue_key:1:-1}
+                curl -u ${JIRA_USER}:${JIRA_TOKEN} -X POST -H "Content-Type: application/json" -d '{"transition": {"id": "61"}}' "${JIRA_BASE_URL}rest/api/2/issue/${issue_key_simple}/transitions"
               done
 
               # Append the current date and time to release_info.txt
@@ -146,8 +146,8 @@ jobs:
               # Process the extracted issue keys
               for issue_key in "${issue_keys[@]}"; do
                 # Do something with the issue key
-                echo "Found JIRA issue key: $issue_key"
-                curl -u ${JIRA_USER}:${JIRA_TOKEN} -X POST -H "Content-Type: application/json" -d '{"transition": {"id": "61"}}' "${JIRA_BASE_URL}rest/api/2/issue/${issue_key}/transitions"
+                issue_key_simple=${issue_key:1:-1}
+                curl -u ${JIRA_USER}:${JIRA_TOKEN} -X POST -H "Content-Type: application/json" -d '{"transition": {"id": "61"}}' "${JIRA_BASE_URL}rest/api/2/issue/${issue_key_simple}/transitions"
               done
 
               # Append the current date and time to release_info.txt
