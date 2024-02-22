@@ -117,7 +117,7 @@ jobs:
             if [[ -z "$commit_messages" ]] || ! echo "$commit_messages" | grep -q 'NAR-[0-9]\+'; then
               echo "No commit messages found or no JIRA issue keys found in the commit messages."
             else
-              issue_keys=($(echo "$commit_messages" | grep -o 'NAR-[0-9]\+'))
+              issue_keys=($(echo "$commit_messages" | grep -o '[NAR-[0-9]\]+'))
 
               # Process the extracted issue keys
               for issue_key in "${issue_keys[@]}"; do
