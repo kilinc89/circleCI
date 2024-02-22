@@ -124,7 +124,7 @@ jobs:
                 # Do something with the issue key
                 echo "Found JIRA issue key: $issue_key"
                 JIRA_DONE_STATUS='"id":"61"'
-                curl -D- -u ${JIRA_USER}:${JIRA_TOKEN} -X GET -H "Content-Type: application/json" ${JIRA_BASE_URL}rest/api/2/issue/${issue_key}?fields=status | grep -q "$JIRA_DONE_STATUS"
+                curl -D- -u ${JIRA_USER}:${JIRA_TOKEN} -X GET -H "Content-Type: application/json" "${JIRA_BASE_URL}rest/api/2/issue/${issue_key}?fields=status" | grep -q "$JIRA_DONE_STATUS"
               done
 
               # Append the current date and time to release_info.txt
