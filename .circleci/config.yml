@@ -68,7 +68,7 @@ jobs:
               git commit -m "Update release_info.txt with current date and time"
 
               # Push the changes
-              git push --set-upstream origin sprint-1
+              git push --set-upstream origin $CIRCLE_BRANCH
             fi
       - jira/notify:
           pipeline_id: << pipeline.id >>
